@@ -6,7 +6,8 @@ import Logo from "../../assets/logo.svg";
 
 import { Car } from '../../components/Car';
 
-export function Home() {
+export function Home(props) {
+
   const carData = {
     brand: 'AUDI',
     name: 'RS 5 Coupé',
@@ -15,6 +16,10 @@ export function Home() {
         price: 120,
     },
     thumbnail: 'https://freepngimg.com/thumb/audi/35227-5-audi-rs5-red.png',    
+  }
+
+  function handleCarDetails() {
+    props.navigation.navigate('carDetails');    
   }
 
   return (
@@ -38,7 +43,9 @@ export function Home() {
         <CarList
           data={[1,2,3,4,5,6,7]}
           keyExtractor={item => String(item)}             
-          renderItem={({item}) => <Car data={carData}/>   }
+          renderItem={({item}) => 
+            <Car data={carData} onPress={handleCarDetails}/>   
+          }
         />
     </Container>
   );

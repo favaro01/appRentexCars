@@ -1,4 +1,4 @@
-import AppLoading from 'expo-app-loading';
+import { ActivityIndicator } from 'react-native';
 import { 
   Archivo_400Regular,
   Archivo_500Medium,
@@ -12,9 +12,8 @@ import {
 
 import { ThemeProvider } from "styled-components";
 
-import { Home } from './src/screens/Home';
+import { Routes } from './src/routes';
 import theme from './src/screens/styles/theme';
-import { Scheduling } from './src/screens/Scheduling';
 
 export default function App() {
 
@@ -22,17 +21,17 @@ export default function App() {
     Inter_400Regular,
     Inter_500Medium,
     Archivo_400Regular,
-    Archivo_500Medium,
+    Archivo_500Medium, 
     Archivo_600SemiBold
   });
 
   if(!fontsLoaded){
-    return <AppLoading/>;
+    return <ActivityIndicator />
   }
 
   return (
     <ThemeProvider theme={theme}>
-      <Scheduling />
+      <Routes />
     </ThemeProvider>
   )
 }

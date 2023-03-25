@@ -27,7 +27,11 @@ import {
 } from './styles';
 import { Button } from '../../components/Button';
 
-export function CarDetails() {
+export function CarDetails(props) {
+
+  function handleConfirmRental() {
+    props.navigation.navigate('scheduling');    
+  }
   return (
     <Container>
         <Header>
@@ -68,7 +72,7 @@ export function CarDetails() {
 
       </Content>
       <Footer>
-        <Button title='Confirmar'/>
+        <Button title='Escolher periodo do aluguel' onPress={handleConfirmRental}/>
       </Footer>
     </Container>
   );
