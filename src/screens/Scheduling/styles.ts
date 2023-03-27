@@ -1,7 +1,6 @@
 import { RFValue } from 'react-native-responsive-fontsize';
 import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper';
 import styled, { css } from 'styled-components/native';
-
 interface DateValueProps{
   selected: boolean;
 }
@@ -11,20 +10,24 @@ export const Container = styled.View`
   background-color: ${({theme}) => theme.colors.background_secondary};
 `;
 
-export const Header = styled.View`
+interface HeightProps{
+  Dimensions: number;
+}
+
+export const Header = styled.View<HeightProps>`
   width: 100%;
-  height: 325px;
+  height: ${({ Dimensions }) => Dimensions*0.46}px;
   background-color: ${({theme}) => theme.colors.header};
   justify-content: center;
-  padding: 25px;
-  padding-top: ${getStatusBarHeight() + 30}px;
+  padding: ${RFValue(25)}px;
+  padding-top: ${getStatusBarHeight() + RFValue(30)}px;
 `;
 
 export const Title = styled.Text`
   color: ${({theme}) => theme.colors.shape};
   font-family: ${({theme}) => theme.fonts.secondary_600};
   font-size: ${RFValue(34)}px;
-  margin-top: 24px;
+  margin-top: ${RFValue(24)}px;
 `;
 
 export const RentalPeriod = styled.View`
@@ -32,7 +35,7 @@ export const RentalPeriod = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 32px 0;
+  margin: ${RFValue(32)}px 0;
 `;
 
 export const DateInfo = styled.View`
@@ -47,12 +50,12 @@ export const DateTitle = styled.Text`
 export const DateValue = styled.Text<DateValueProps>`
   color: ${({theme}) => theme.colors.shape};
   font-family: ${({theme}) => theme.fonts.primary_500};
-  font-size: ${RFValue(15)}px;
+  font-size: ${RFValue(13.5)}px;
 
   ${({selected, theme}) => !selected && css`
     border-bottom-width: 1px;
     border-bottom-color: ${theme.colors.text};
-    padding-bottom: 5px;
+    padding-bottom: ${RFValue(5)}px;
   `}
 `;
 
@@ -66,7 +69,7 @@ export const Content = styled.ScrollView.attrs({
 export const Footer = styled.View`
   width: 100%;  
   background-color: ${({theme}) => theme.colors.background_secondary};
-  padding: 24px 24px ${getBottomSpace() + 24}px;
+  padding: ${RFValue(24)}px ${RFValue(24)}px ${getBottomSpace() + RFValue(24)}px;
 `
 
 
