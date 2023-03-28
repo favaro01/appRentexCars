@@ -74,7 +74,15 @@ export function SchedulingDetails(props) {
       ...dates,
     ];
 
-    await api.put(`/schedules_bycars/${car.id}`, {
+    await api.post(`schedules_byuser`, {
+      user_id: 1,
+      car
+    });
+    // .then(() => props.navigation.navigate('schedulingComplete'))
+    // .catch(() => Alert.alert('Sentimos muito', 'Não foi possivel confirmar o agendamento!'))
+
+
+    api.put(`/schedules_bycars/${car.id}`, {
       id: car.id,
       unavailable_dates
     })
