@@ -52,6 +52,7 @@ interface Params{
 }
 
 export function SchedulingDetails(props) {
+  const [loading, setLoading] = useState(false);
   const [rentalPeriod, setRentalPeriod] = useState<RentalPeriod>({} as RentalPeriod);
 
   const theme = useTheme();
@@ -66,7 +67,7 @@ export function SchedulingDetails(props) {
   }  
 
   async function handleConfirmRental() {
-    console.log(car.id);
+    setLoading(true);
     const schedulesByCar = await api.get(`/schedules_bycars/${car.id}`);
 
     const unavailable_dates = [
@@ -76,7 +77,9 @@ export function SchedulingDetails(props) {
 
     await api.post(`schedules_byuser`, {
       user_id: 1,
-      car
+      car,
+      startDate: format(getPlatformDate(new Date(dates[0])), 'dd/MM/yyyy'),
+      endDate: format(getPlatformDate(new Date(dates[dates.length - 1])), 'dd/MM/yyyy')
     });
     // .then(() => props.navigation.navigate('schedulingComplete'))
     // .catch(() => Alert.alert('Sentimos muito', 'Não foi possivel confirmar o agendamento!'))
@@ -87,8 +90,10 @@ export function SchedulingDetails(props) {
       unavailable_dates
     })
     .then(() => props.navigation.navigate('schedulingComplete'))
-    .catch(() => Alert.alert('Sentimos muito', 'Não foi possivel confirmar o agendamento!'))
-
+    .catch(() => {
+      setLoading(false);
+      Alert.alert('Sentimos muito', 'Não foi possivel confirmar o agendamento!');
+    });
   }
 
   useEffect(() => {
@@ -167,7 +172,13 @@ export function SchedulingDetails(props) {
       </Content>
 
       <Footer>
-        <Button title='Alugar agora' color={theme.colors.success} onPress={handleConfirmRental}/>
+        <Button 
+          title='Alugar agora' 
+          color={theme.colors.success} 
+          onPress={handleConfirmRental}
+          disabled={loading}
+          loading={loading}
+        />
       </Footer>
     </Container>
   );

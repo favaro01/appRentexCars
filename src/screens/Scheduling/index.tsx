@@ -60,14 +60,11 @@ export function Scheduling(props) {
 
   //function navigation next screen
   function handleConfirmRental() {
-    if(!rentalPeriod.startFormatted || !rentalPeriod.endFormatted){
-      Alert.alert('Periodo não selecionado', 'Por favor selecione uma data para alugar.');
-    }else{
+   
       props.navigation.navigate('schedulingDetails', {
         car, 
         dates: Object.keys(markedDates)
       });    
-    }
   }
   //function navigation back screen
   function handleBack() {
@@ -140,7 +137,11 @@ export function Scheduling(props) {
         </Content>
 
         <Footer>
-          <Button title='Confirmar' onPress={handleConfirmRental}/>
+          <Button 
+            title='Confirmar' 
+            onPress={handleConfirmRental}
+            disabled={!rentalPeriod.endFormatted}
+          />
         </Footer>
 
     </Container>
