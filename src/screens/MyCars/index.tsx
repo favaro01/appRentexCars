@@ -21,7 +21,7 @@ import {
   CarFooterPeriod,
   CarFooterDate,
 } from './styles';
-import { Load } from '../../components/Load';
+import { LoadAnimation } from '../../components/LoadAnimation';
 
 interface CarProps{
   id: string;
@@ -82,11 +82,11 @@ export function MyCars(props) {
           
         </Header>
 
-        { loading ? <Load /> : 
+        { loading ? <LoadAnimation /> : 
           <Content>
             <Appointments>
               <AppointmentsTitle>Agendamentos Feitos</AppointmentsTitle>
-              <AppointmentsQuantity>{Car.length}</AppointmentsQuantity>
+              <AppointmentsQuantity>{cars.length}</AppointmentsQuantity>
             </Appointments>
 
               <FlatList 
