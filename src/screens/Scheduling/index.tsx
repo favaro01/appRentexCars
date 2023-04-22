@@ -59,8 +59,7 @@ export function Scheduling(props) {
   const { car } = route.params as Params;
 
   //function navigation next screen
-  function handleConfirmRental() {
-   
+  function handleConfirmRental() {   
       props.navigation.navigate('schedulingDetails', {
         car, 
         dates: Object.keys(markedDates)
