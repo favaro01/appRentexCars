@@ -10,6 +10,7 @@ import { useTheme } from 'styled-components';
 import { Input } from '../../components/Input';
 import { PasswordInput } from '../../components/PasswordInput';
 import * as Yup from 'yup';
+import { useAuth } from "../../hooks/auth";
 
 import { 
   Container, 
@@ -26,6 +27,8 @@ export function SignIn(props) {
   const [password, setPassword] = useState('');
   const [keyboardStatus, setKeyboardStatus] = useState(false);
 
+  const { signIn } = useAuth();
+
   async function handleSignIn() {
     try {
       const schema = Yup.object().shape({
@@ -39,6 +42,7 @@ export function SignIn(props) {
       });
   
       await schema.validate({email, password})
+      signIn({email, password});
     }catch(error) {
       if(error instanceof Yup.ValidationError){
         Alert.alert('Opa', error.message)

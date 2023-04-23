@@ -1,4 +1,3 @@
-import { ActivityIndicator } from 'react-native';
 import { 
   Archivo_400Regular,
   Archivo_500Medium,
@@ -11,6 +10,7 @@ import {
  } from '@expo-google-fonts/inter'
 
 import { ThemeProvider } from "styled-components";
+import { AppProvider } from './src/hooks'
 
 import { Routes } from './src/routes';
 import theme from './src/screens/styles/theme';
@@ -50,7 +50,9 @@ export default function App() {
   return (
     <GestureHandlerRootView onLayout={onLayoutRootView} style={{flex: 1}}>
       <ThemeProvider theme={theme}>
-        <Routes />
+        <AppProvider>
+          <Routes />
+        </AppProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
   )

@@ -10,6 +10,7 @@ import {
   Alert
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
+import { api } from '../../../services/api';
 
 interface Params{
   user: {
@@ -32,7 +33,7 @@ export function SignUpSecondStep(props) {
     props.navigation.goBack();
   }
 
-  function handleRegister() {
+  async function handleRegister() {
     if(!password || !passwordConfirm){
       return Alert.alert('Ops','Informe a senha e a confirmção.');
     }
@@ -40,12 +41,22 @@ export function SignUpSecondStep(props) {
       return Alert.alert('Ops','As senhas são iguais');
     }
 
-    //Enviar para api e chamar a tela final
-    props.navigation.navigate('confirmation', {
-      title: 'Conta Criada!',
-      message: `Agora é só fazer login\ne aproveitar.`,
-      nextScreenRoute: 'signin'
+    await api.post('/users', {
+      name: user.name,
+      email: user.email,
+      driver_license: user.driverLicense,
+      password,
     })
+    .then(() => {
+      props.navigation.navigate('confirmation', {
+        title: 'Conta Criada!',
+        message: `Agora é só fazer login\ne aproveitar.`,
+        nextScreenRoute: 'signin'
+      })
+    })
+    .catch(() => {
+      Alert.alert('Opa', 'Não foi possível cadastrar')
+    });
   }
 
   useEffect(() => {
