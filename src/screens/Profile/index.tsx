@@ -31,8 +31,8 @@ export function Profile(props:any) {
   function handleSignOut() {
     
   }
-  function handleOptionChange() {
-    
+  function handleOptionChange(optionSelected: 'dataEdit' | 'passwordEdit') {
+    setOption(optionSelected);
   }
 
   return (    
@@ -67,13 +67,16 @@ export function Profile(props:any) {
           <ContentHeader>
             <Option 
               active={option === 'dataEdit'}
-              onPress={() => handleOptionChange()}
+              onPress={() => handleOptionChange('dataEdit')}
             >
               <OptionTitle active={option === 'dataEdit'}>
                 Dados
               </OptionTitle>
             </Option>              
-            <Option active={option === 'passwordEdit'}>
+            <Option 
+              active={option === 'passwordEdit'}
+              onPress={() => handleOptionChange('passwordEdit')}
+            >
               <OptionTitle active={option === 'passwordEdit'}>
                 Trocar Senha
               </OptionTitle>
