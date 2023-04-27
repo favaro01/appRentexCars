@@ -21,7 +21,7 @@ import {
   Form 
 } from './styles';
 
-export function SignIn(props) {
+export function SignIn(props:any) {
   const theme = useTheme();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,7 +29,7 @@ export function SignIn(props) {
 
   const { signIn } = useAuth();
 
-  async function handleSignIn() {
+  async function handleSignIn() {    
     try {
       const schema = Yup.object().shape({
         email: 
